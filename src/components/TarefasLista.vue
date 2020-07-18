@@ -5,7 +5,7 @@
                 <h1 class="font-weight-light">Lista de tarefas</h1>
             </div>
             <div class="col-sm-2">
-                <button @click="exibirFormulario = !exibirFormulario" class="btn btn-primary float-right">
+                <button @click="exibirFormularioCriarTarefa" class="btn btn-primary float-right">
                     <i class="fa fa-plus mr-2"></i>
                     <span>Criar</span>
                 </button>
@@ -18,7 +18,8 @@
                 :key="tarefa.id"
                 :tarefa="tarefa" 
                 @editar="selecionarTarefaParaEdicao"
-                @deletar="deletarTarefa"/>
+                @deletar="deletarTarefa"
+                @concluir="editarTarefa"/>
         </ul>
 
         <p v-else>Nenhuma tarefa criada.</p>
@@ -87,6 +88,13 @@ export default {
                     this.tarefas.splice(indice, 1)
                 })
             }
+        },
+        exibirFormularioCriarTarefa() {
+            if (this.tarefaSelecionada) {
+                this.tarefaSelecionada = undefined
+                return
+            }
+            this.exibirFormulario = !this.exibirFormulario
         },
         resetar(){
             this.tarefaSelecionada = undefined
